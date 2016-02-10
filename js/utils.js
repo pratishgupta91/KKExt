@@ -34,13 +34,33 @@ function getGreetings()
 
 function getQuote()
 {
-	var req = new XMLHttpRequest();
-	req.open('GET', 'http://quotes.rest/qod.json', false);
-	req.send(null);
-	if(req.status == 200) {
-		var jsonResponse =  req.responseText;
-		alert(jsonResponse);
-		var quote = jsonResponse;//.contents;//["quotes"][0]["quote"];
-		document.getElementById("greeting").innerHTML = quote;
-    }
+	var currentDate = new Date();
+	var day = currentDate.getDate();
+	var month = currentDate.getMonth();
+	var year = currentDate.getFullYear();
+	var today = day + "" + month + "" + year;
+	var quote = "";
+
+	chrome.storage.sync.get("quoteLastUpdated", function(items) {}
+	    if (!chrome.runtime.error) {
+	    	if(items.data == today) {
+	    		chrome.storage.sync.get("quote", function(qitems) {
+			    if (!chrome.runtime.error) {
+			    	quote = qitems.data;
+			    }
+			}
+	    }
+	    else {
+	    	chrome.storage.sync.set({'quoteLastUpdated': today}, function() {});
+	    	var req = new XMLHttpRequest();
+			req.open('GET', 'http://quotes.rest/qod.json', false);
+			req.send(null);
+			if(req.status == 200) {
+				var jsonResponse =  req.responseText;
+				alert(jsonResponse);
+				var quote = jsonResponse;//.contents;//["quotes"][0]["quote"];
+				document.getElementById("greeting").innerHTML = quote;
+		    }
+	    }
+    });
 }
