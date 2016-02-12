@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "GTmetrix Analyzer Plugin",
-  "description": "This extension will analyze a page using GTmetrix",
+  "name": "Kaur Homepage",
+  "description": "This extension will make you happy",
   "version": "1.0",
 
   "browser_action": {

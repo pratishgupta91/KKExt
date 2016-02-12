@@ -32,35 +32,41 @@ function getGreetings()
 	document.getElementById("greeting").innerHTML = greetingStr + ", Kaur";
 }
 
+function getQuoteFromServer()
+{
+	//alert("hi");
+	var req = new XMLHttpRequest();
+	req.open('GET', 'http://quotes.rest/qod.json', false);
+	req.send(null);
+	if(req.status == 200) {
+		return req.responseText;
+	}
+}
+
 function getQuote()
 {
 	var currentDate = new Date();
 	var day = currentDate.getDate();
-	var month = currentDate.getMonth();
+	var month = currentDate.getMonth() + 1;
 	var year = currentDate.getFullYear();
-	var today = day + "" + month + "" + year;
-	var quote = "";
+	var today = year + "-" + 
+		((month < 9) ? "0" + month : month) + "-" +
+		((day < 9) ? "0" + day : day);
 
-	chrome.storage.sync.get("quoteLastUpdated", function(items) {}
-	    if (!chrome.runtime.error) {
-	    	if(items.data == today) {
-	    		chrome.storage.sync.get("quote", function(qitems) {
-			    if (!chrome.runtime.error) {
-			    	quote = qitems.data;
-			    }
-			}
+	var jQuote = "";
+	chrome.storage.sync.get('quote', function(items) {
+	    if (chrome.runtime.error || items.quote == "") {
+	        jQuote = getQuoteFromServer();
+    		chrome.storage.sync.set({'quote' : jQuote});
 	    }
-	    else {
-	    	chrome.storage.sync.set({'quoteLastUpdated': today}, function() {});
-	    	var req = new XMLHttpRequest();
-			req.open('GET', 'http://quotes.rest/qod.json', false);
-			req.send(null);
-			if(req.status == 200) {
-				var jsonResponse =  req.responseText;
-				alert(jsonResponse);
-				var quote = jsonResponse;//.contents;//["quotes"][0]["quote"];
-				document.getElementById("greeting").innerHTML = quote;
-		    }
+	    else if(JSON.parse(items.quote).contents.quotes[0].date != today){
+	    	jQuote = getQuoteFromServer();
+    		chrome.storage.sync.set({'quote' : jQuote});
 	    }
-    });
+	    else{
+	    	jQuote = items.quote;
+		}
+	    var parsedQuote = JSON.parse(jQuote);
+	    document.getElementById("quote").innerHTML = parsedQuote.contents.quotes[0].quote;
+	});
 }

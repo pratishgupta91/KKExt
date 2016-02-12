@@ -1,0 +1,36 @@
+.gridContainer
+{
+	background: #fff000;
+	width:80%;
+	margin:auto;
+}
+
+.col {
+    display: block;
+    position: relative;
+    float: left;
+    width: 32%;
+    height: auto;
+    margin-left: 1%;
+}
+
+.box {
+    display: block;
+    position: relative;
+    margin-bottom: 6%;
+    float: left;
+    width: 96%;
+    min-height: 200px;
+    padding: 2%;
+    background-color: red;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
