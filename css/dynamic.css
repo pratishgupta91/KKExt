@@ -18,11 +18,42 @@
     display: block;
     position: relative;
     margin-bottom: 6%;
-    float: left;
     width: 96%;
-    min-height: 200px;
-    padding: 2%;
-    background-color: red;
+    min-height: 150px;
+    padding: 4%;
+    color: black;
+    box-shadow: 3px 3px 3px #888888;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 5;
+    line-height: 110%;
+}
+
+.bottomBar{
+  height: 30px;
+  background-color: "#ffffff";
+  display: block;
+  position: relative;   
+  font-size: 20px;
+  padding: 0%;
+}
+
+.icons{
+
+}
+
+.icon{
+  display: block;
+  float: right;
+  width: 30px;
+}
+
+.delete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: auto;
+  font-size: 30px;
+  line-height: 110%;
 }
 
 .btn-circle {
@@ -34,3 +65,4 @@
   line-height: 1.428571429;
   border-radius: 15px;
 }
+

@@ -29,7 +29,7 @@ function getGreetings()
 	{
 		greetingStr = "Good Evening";
 	}
-	document.getElementById("greeting").innerHTML = greetingStr + ", Kaur";
+	document.getElementById("greeting").innerHTML = greetingStr + ", Pratish";
 }
 
 function getQuoteFromServer()

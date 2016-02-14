@@ -10,16 +10,23 @@ body {
 	background: none;
 }
 
+* { 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing:; border-box; 
+}
+
 .full {
-  background: url(/../img/pic2.jpg) no-repeat center center fixed; 
+  //background: url(/../img/pic2.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  background-color: #E0EBE7;
 }
 
 #greetings{
-	color: #ffffff;
+	color: #000;
 }
 
 .vertical-center {
@@ -32,14 +39,14 @@ body {
 
 h1 {
 	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-	font-size: 120px;
+	font-size: 100px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 400;
 }
 h2 {
 	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-	font-size: 30px;
+	font-size: 40px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 300;
@@ -57,3 +64,59 @@ h3 {
   margin:auto;
   bottom: 5%;
 }
+
+.createbox {
+	position: relative;;
+    margin: auto;
+    margin-bottom: 3%;
+    width: 60%;
+    padding: 2%;
+    color: black;
+    box-shadow: 3px 3px 3px #888888;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 5;
+    background-color: white;
+    height: auto;
+}
+
+.boorderless_text{
+	border: 0px;
+}
+
+.add_note{
+	width: 100%;
+	padding: 0px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 5;
+	font-size: 25px;
+}
+
+input:focus{
+    outline: none;
+}
+
+.doneButton {
+	background-color:#ffffff;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:'Open Sans', sans-serif;
+	font-size:15px;
+	padding:10px 31px;
+	text-decoration:none;
+	float: right;
+	position:absolute;
+    bottom:10px;
+    right:15px;
+    border-radius:5px;
+}
+.doneButton:hover {
+	background-color:lightgray;
+	color: white;
+	text-decoration: none;
+}
+.doneButton:active {
+	text-decoration: none;
+}
+
+        
