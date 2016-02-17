@@ -58,31 +58,26 @@
     };
 })(jQuery);
 
-//x2 + ax + 100 = 0
-//y = h - 5t2
-//x = ut
-//y = h - 5x2/u2
 $(document).ready(function() {
-    // $('#col1').addNote(
-    //     {text : "Hi a", 
-    //      color: "#67CCDE",
-    //      id: "0"});
 
-    // $('#col2').addNote(
-    //     {text : "Hibjkhh khkhkh kjh kk kjhk hkh khkj hkh kh  a", 
-    //      color: "#F56743",
-    //      id: "1"});
+    var maxId = $('.box').length;
+            
+    chrome.storage.sync.get('notes', function(items) {
+        if (!chrome.runtime.error) {
+            $('.col').empty();
+            var count = items.notes.length;
+            for(var i = 0; i < items.notes.length; i++){
+                var numBoxes = $('.box').length;
+                var colId = '#col' + ((numBoxes % 3) + 1);
+                $(colId).addNote({text : items.notes[i].text, color: "#fff", id: numBoxes});
+            }
+        }
+    });
 
-    // $('#col3').addNote(
-    //     {text : "Hi, my name ih. What should I do?", 
-    //      color: "#F1EE23",
-    //      id: "2"});
-
-    // $('#col1').addNote(
-    //     {text : "Hi, my name ih. What should I do?", 
-    //      color: "#F1EE23",
-    //      id: "3"});
-
+//     data.items.push(
+//     {id: "7", name: "Douglas Adams", type: "comedy"}
+// );
+        
     $('#createBox').contractCreateBox();
     
     $('#note').click(function(){
@@ -109,6 +104,18 @@ $(document).ready(function() {
             $('#delete' + numBoxes).click( function() {
                 $('#box' + numBoxes).hide();
                 // Todo remove
+            });
+
+            chrome.storage.sync.get('notes', function(items) {
+                if (chrome.runtime.error) {
+                    jNote = [];
+                    jNote.push({"text": text, "color": "#fff"});
+                    chrome.storage.sync.set({'notes' : jNote});                    
+                }
+                else{
+                    items.notes.push({"text": text, "color": "#fff"});
+                    chrome.storage.sync.set({'notes' : items.notes});
+                }
             });
         }
         $('#createBox').contractCreateBox();

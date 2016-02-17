@@ -1,0 +1,12 @@
+.containerGrid {
+  position: relative;
+  width: 650px;
+}
+.box {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: red;
+  width: 200px;
+  margin-right: 10px;
+}
