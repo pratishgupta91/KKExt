@@ -1,12 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="full" lang="en">
 <!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
 
 <head>
-	<link href="css/exp.css" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/the-big-picture.css" rel="stylesheet">
+    <link href="css/exp.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
-	<script src="js/jquery.js"></script>
-    <script src="js/exp.js"></script>
+    <div>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12 col-sm-12" id="greetings">
+                    <h1 id="time"></h1>
+                    <h3 id="quote"></h3>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-12 col-sm-12" id="grid">
+	                <div class="createbox" id="createBox">
+                        <input type="text" id="note" placeholder="Add a note" class="boorderless_text add_note">
+                        <div class="options_band">
+	                        <a href="#" id="done" class="doneButton">DONE</a>
+	                        <select id="remindertime" name="remindertime">
+								<option value="-1">Never remind me</option>
+								<option value="2">Every two hours</option>
+								<option value="6">Every six hours</option>
+								<option value="24">Every day</option>
+							</select>
+						</div>
+	                </div>
+                    <ul class="grid"></ul>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script src="js/resource.js"></script>
+    <script src="js/grid.js"></script>
+    <script src="js/chrome.helper.js"></script>
+    <script src="js/note.create.box.helper.js"></script>
+    <script src="js/reminder.helper.js"></script>
+    <script src="js/box.helper.js"></script>
+    <script src="js/quote.helper.js"></script>
+    <script src="js/grid.helper.js"></script>
+    <script src="js/utils.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

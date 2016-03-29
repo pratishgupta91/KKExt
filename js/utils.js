@@ -1,6 +1,6 @@
 getTime();
 getGreetings();
-getQuote();
+//getQuote();
 
 function getTime()
 {
@@ -29,44 +29,44 @@ function getGreetings()
 	{
 		greetingStr = "Good Evening";
 	}
-	document.getElementById("greeting").innerHTML = greetingStr + ", Pratish";
+	//document.getElementById("greeting").innerHTML = greetingStr + ", Pratish";
 }
 
-function getQuoteFromServer()
-{
-	//alert("hi");
-	var req = new XMLHttpRequest();
-	req.open('GET', 'http://quotes.rest/qod.json', false);
-	req.send(null);
-	if(req.status == 200) {
-		return req.responseText;
-	}
-}
+// function getQuoteFromServer()
+// {
+// 	//alert("hi");
+// 	var req = new XMLHttpRequest();
+// 	req.open('GET', 'http://quotes.rest/qod.json', false);
+// 	req.send(null);
+// 	if(req.status == 200) {
+// 		return req.responseText;
+// 	}
+// }
 
-function getQuote()
-{
-	var currentDate = new Date();
-	var day = currentDate.getDate();
-	var month = currentDate.getMonth() + 1;
-	var year = currentDate.getFullYear();
-	var today = year + "-" + 
-		((month < 9) ? "0" + month : month) + "-" +
-		((day < 9) ? "0" + day : day);
+// function getQuote()
+// {
+// 	var currentDate = new Date();
+// 	var day = currentDate.getDate();
+// 	var month = currentDate.getMonth() + 1;
+// 	var year = currentDate.getFullYear();
+// 	var today = year + "-" + 
+// 		((month < 9) ? "0" + month : month) + "-" +
+// 		((day < 9) ? "0" + day : day);
 
-	var jQuote = "";
-	chrome.storage.sync.get('quote', function(items) {
-	    if (chrome.runtime.error || items.quote == "") {
-	        jQuote = getQuoteFromServer();
-    		chrome.storage.sync.set({'quote' : jQuote});
-	    }
-	    else if(JSON.parse(items.quote).contents.quotes[0].date != today){
-	    	jQuote = getQuoteFromServer();
-    		chrome.storage.sync.set({'quote' : jQuote});
-	    }
-	    else{
-	    	jQuote = items.quote;
-		}
-	    var parsedQuote = JSON.parse(jQuote);
-	    document.getElementById("quote").innerHTML = parsedQuote.contents.quotes[0].quote;
-	});
-}
+// 	var jQuote = "";
+// 	chrome.storage.sync.get('quote', function(items) {
+// 	    if (chrome.runtime.error || items.quote == "") {
+// 	        jQuote = getQuoteFromServer();
+//     		chrome.storage.sync.set({'quote' : jQuote});
+// 	    }
+// 	    else if(JSON.parse(items.quote).contents.quotes[0].date != today){
+// 	    	jQuote = getQuoteFromServer();
+//     		chrome.storage.sync.set({'quote' : jQuote});
+// 	    }
+// 	    else{
+// 	    	jQuote = items.quote;
+// 		}
+// 	    var parsedQuote = JSON.parse(jQuote);
+// 	    document.getElementById("quote").innerHTML = parsedQuote.contents.quotes[0].quote;
+// 	});
+// }

@@ -1,12 +1,69 @@
-.containerGrid {
-  position: relative;
-  width: 650px;
+* { 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
 }
-.box {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+
+.grid {
   background-color: red;
-  width: 200px;
+	width: 90%;
+	position: relative;
+	height: auto;
+	margin: auto;
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	padding: 10px;
+	width: 32%;
+	height: auto;
+	margin-right: 1%;
+	color: black;
+	margin-top: 8px;
+	position: absolute;
+	box-shadow: 3px 3px 3px #888888;
+	line-height: 110%;
+}
+
+.bottomBar{
+  height: 27px;
+  background-color: "#ffffff";
+  display: block;
+  position: relative; 
+  width: 100%;  
+  font-size: 20px;
+  bottom: 0px;
+  left: 0px;
+  padding-right: 5px;
+  visibility: hidden;
+}
+
+.delete {
+  position: relative;
+  float: right;
+  display: block;
+  font-size: 30px;
+  line-height: 110%;
+  height: 27px;
+}
+
+.reminder_icon {
+  position: relative;
+  float: right;
+  display: block;
+  font-size: 30px;
+  line-height: 110%;
+  height: 27px;
   margin-right: 10px;
+}
+
+.fa {
+  color: black;
+}
+
+.fa:hover {
+  color: white;
 }

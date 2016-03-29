@@ -5,8 +5,9 @@
  */
 
 body {
-	margin-top: 30px;
-	margin-bottom: 50px;
+	margin-top: 20px;
+	margin-bottom: 0px;
+	margin-left: 0px;
 	background: none;
 }
 
@@ -14,6 +15,10 @@ body {
     -moz-box-sizing: border-box; 
     -webkit-box-sizing: border-box; 
      box-sizing:; border-box; 
+}
+
+.container {
+	width: 100%;
 }
 
 .full {
@@ -54,7 +59,7 @@ h2 {
 
 h3 {
 	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-	font-size: 17px;
+	font-size: 21px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 200;
@@ -65,8 +70,13 @@ h3 {
   bottom: 5%;
 }
 
+#quote {
+	margin-bottom: 0px;
+	width: 95%;
+}
+
 .createbox {
-	position: relative;;
+	position: relative;
     margin: auto;
     margin-bottom: 3%;
     width: 60%;
@@ -95,9 +105,14 @@ input:focus{
     outline: none;
 }
 
+.options_band {
+	margin-top: 10px;
+	height: 50px;
+}
+
 .doneButton {
-	background-color:#ffffff;
-	display:inline-block;
+	background-color:lightgray;
+	display:block;
 	cursor:pointer;
 	color:#000000;
 	font-family:'Open Sans', sans-serif;
@@ -105,13 +120,12 @@ input:focus{
 	padding:10px 31px;
 	text-decoration:none;
 	float: right;
-	position:absolute;
-    bottom:10px;
-    right:15px;
-    border-radius:5px;
+	position:relative;
+	margin-right: 10px;
+	border-radius:5px;
 }
 .doneButton:hover {
-	background-color:lightgray;
+	background-color:darkgray;
 	color: white;
 	text-decoration: none;
 }
@@ -119,4 +133,15 @@ input:focus{
 	text-decoration: none;
 }
 
-        
+#remindertime {
+	background-color:#ffffff;
+	font-family:'Open Sans', sans-serif;
+	font-size:15px;
+	padding:10px 10px;
+	height: 40px;
+	text-decoration:none;
+	position:relative;
+	float: right;
+	margin-right: 10px;
+	border-radius:5px;
+}

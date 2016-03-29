@@ -70,6 +70,13 @@ $(document).ready(function() {
                 var numBoxes = $('.box').length;
                 var colId = '#col' + ((numBoxes % 3) + 1);
                 $(colId).addNote({text : items.notes[i].text, color: "#fff", id: numBoxes});
+
+                // listener for delete
+                $('#delete' + numBoxes).click( function() {
+                    //$( ".col" ).empty();
+                    items.notes.splice(numBoxes, 1);
+                    chrome.storage.sync.set({'notes' : items.notes});
+                });
             }
         }
     });
@@ -84,28 +91,24 @@ $(document).ready(function() {
         $("#createBox").expandCreateBox();
     });
 
-    $('#done').click(function(){
+    $('#done').click(function(){    
         var text = $('#note').val();
         if(text.length > 0) {
-            var numBoxes = $('.box').length;
-            var colId = '#col' + ((numBoxes % 3) + 1);
-            $(colId).addNote({text : text, color: "#fff", id: numBoxes});
-            $('#note').val('');
+            // var numBoxes = $('.box').length;
+            // var colId = '#col' + ((numBoxes % 3) + 1);
+            // $(colId).addNote({text : text, color: "#fff", id: numBoxes});
+            // $('#note').val('');
 
-            $('#icons' + numBoxes).hide();
-            $('#box' + numBoxes).mouseenter( function() {
-                $('#icons' + numBoxes).show();
-            });
+            // $('#icons' + numBoxes).hide();
+            // $('#box' + numBoxes).mouseenter( function() {
+            //     $('#icons' + numBoxes).show();
+            // });
          
-            $('#box' + numBoxes).mouseleave( function() {
-                $('#icons' + numBoxes).hide();
-            });
+            // $('#box' + numBoxes).mouseleave( function() {
+            //     $('#icons' + numBoxes).hide();
+            // });
 
-            $('#delete' + numBoxes).click( function() {
-                $('#box' + numBoxes).hide();
-                // Todo remove
-            });
-
+            
             chrome.storage.sync.get('notes', function(items) {
                 if (chrome.runtime.error) {
                     jNote = [];
@@ -113,8 +116,21 @@ $(document).ready(function() {
                     chrome.storage.sync.set({'notes' : jNote});                    
                 }
                 else{
-                    items.notes.push({"text": text, "color": "#fff"});
+                    items.notes.splice(0, 0, {"text": text, "color": "#fff"});
                     chrome.storage.sync.set({'notes' : items.notes});
+                }
+            });
+
+            chrome.storage.sync.get('notes', function(items) {
+                if (!chrome.runtime.error) {
+                    $('.col').empty();
+                    var count = items.notes.length;
+                    for(var i = 0; i < items.notes.length; i++){
+                        var numBoxes = $('.box').length;
+                        var colId = '#col' + ((numBoxes % 3) + 1);
+                        $(colId).addNote({text : items.notes[i].text, color: "#fff", id: numBoxes});
+
+                    }
                 }
             });
         }
