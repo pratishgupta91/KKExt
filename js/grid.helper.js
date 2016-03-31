@@ -42,7 +42,7 @@ $(document).ready(function() {
 
     // Load all the notes and notify reminders
     chromeHelper.RetrieveNotes(function(items) {
-        if (items) {
+        if (items && items.notes) {
             reminderHelper.ResetReminderItems();
             items.notes.forEach(function(note) {
                 dynamicGrid.AppendAndPositionBox(note.text, note.color, note.interval);
@@ -91,5 +91,5 @@ $(document).ready(function() {
 });
 
 $( window ).resize(function() {
-  dynamicGrid.ReadjustBoxes();
+  dynamicGrid.ReadjustAndAnimate(0, NO_OP);
 });

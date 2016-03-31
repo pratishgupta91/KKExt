@@ -3,7 +3,7 @@ function QuoteHelper() {
 }
 
 QuoteHelper.prototype.Initialize = function() {
-	this.quoteElem = $('#quote');
+	this.quoteElem = $('.quote');
 };
 
 QuoteHelper.prototype.GetQuoteFromServer = function(callback) {
@@ -33,6 +33,6 @@ QuoteHelper.prototype.IsServerRequestNeeded = function(lastUpdated) {
 };
 
 QuoteHelper.prototype.SetQuote = function(quote) {
-	//this.quoteElem.text(quote);
+	this.quoteElem.text(quote);
 };
 

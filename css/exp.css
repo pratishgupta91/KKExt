@@ -60,10 +60,12 @@ li {
   margin-right: 10px;
 }
 
-.fa {
+.fa-times,
+.fa-clock-o {
   color: black;
 }
 
-.fa:hover {
+.fa-times:hover,
+.fa-clock-o:hover {
   color: white;
 }

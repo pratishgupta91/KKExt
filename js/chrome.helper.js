@@ -23,14 +23,14 @@ ChromeHelper.prototype.RetrieveNotes = function(callback) {
 
 ChromeHelper.prototype.StoreNoteAt = function(index, note) {
 	this.RetrieveNotes(function(items) {
-		if (!items) {
+		if (items && items.notes) {
+			items.notes.splice(index, 0, note);
+			chrome.storage.sync.set({notes : items.notes});
+		}
+		else {	
 			firstNote = [];
 			firstNote.push(note);
 			chrome.storage.sync.set({notes : firstNote});
-		}
-		else {
-			items.notes.splice(index, 0, note);
-			chrome.storage.sync.set({notes : items.notes});
 		}
 	});
 };

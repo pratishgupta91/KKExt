@@ -8,11 +8,13 @@ function DynamicGrid() {
 
 	// Max 7 cols supported
 	var columnHeights;
+    var boxPos;
 
 	// Functions
 	this.InitGridElem = function() {
 		this.gridElem = $('.grid');
 		this.columnHeights = [0, 0, 0, 0, 0, 0, 0];
+        this.boxPos = new Array();
 	}
 }
 
@@ -58,22 +60,18 @@ DynamicGrid.prototype.GetBoxCount = function() {
 
 // Get position of new box with index = [index] in the grid
 DynamicGrid.prototype.GetBoxPositionAt = function(index) {
-	var colIndex = (index % this.GetColCount());
-
-	var position = {
-		x: this.GetBoxWidth(index) * colIndex,
-		y: this.columnHeights[colIndex]
+    var position = {
+		left: this.boxPos[index][0],
+		top: this.boxPos[index][1]
 	};
 
-	this.columnHeights[colIndex] += this.GetBoxHeight(index);
 	return position;
 };
 
 // Set the position of box
-DynamicGrid.prototype.SetBoxAt = function(box, index) {
-	var position = this.GetBoxPositionAt(index);
-	box.css('left', position.x + 'px');
-	box.css('top', position.y + 'px');
+DynamicGrid.prototype.SetBoxPositionAt = function(box, position) {
+    box.css('left', position.left + 'px');
+    box.css('top', position.top + 'px');
 };
 
 // Reset Column heights
@@ -81,14 +79,45 @@ DynamicGrid.prototype.ResetColHeights = function() {
 	this.columnHeights = [0, 0, 0, 0, 0, 0, 0];
 };
 
-// Readjust all boxes
-DynamicGrid.prototype.ReadjustBoxes = function() {
-	this.ResetColHeights();
-	var that = this;
+DynamicGrid.prototype.LoopBoxes = function(callback) {
+    $('.square_box').each(function(index) {
+        callback(index);
+    });
+};
 
-	$('.square_box').each(function(index) {
-		that.SetBoxAt($(this), index);
-	});
+// Readjust all positions
+DynamicGrid.prototype.ReadjustBoxPositions = function() {
+    this.boxPos.length = 0;
+    this.ResetColHeights();
+    var that = this;
+
+    this.LoopBoxes( function (index) {
+        var colIndex = (index % that.GetColCount());
+        var left = (that.GetBoxWidth(index) * colIndex);
+        var top = that.columnHeights[colIndex];
+        that.boxPos.push([left, top]);
+        that.columnHeights[colIndex] += that.GetBoxHeight(index);
+    });
+};
+
+DynamicGrid.prototype.ReadjustAndAnimate = function(operatedBoxPos, operation) {
+    
+    // 1. Readjust box positions to get new positions
+    this.ReadjustBoxPositions();
+    var that = this;
+
+    // 2. Set the new positions
+    this.LoopBoxes(function(index) {
+        var box = that.GetBoxElem(index);
+        var newPos = that.GetBoxPositionAt(index);
+        var oldPos = box.position();
+
+        box.animate({
+            left: newPos.left,
+            top: newPos.top
+        }, 200, function() {});
+        
+    });
 };
 
 DynamicGrid.prototype.SetFontSize = function(box, textLength) {
@@ -130,8 +159,7 @@ DynamicGrid.prototype.AppendAndPositionBox = function(text, color, interval) {
 	appendedBox.data(IS_REMINDER, ((interval > 0) ? true : false));
 
 	// 3. Position the box at appropriate coordinates
-	this.SetBoxAt(appendedBox, index);
-
+    this.ReadjustAndAnimate(index, INSERT_BOX);
 };
 
 // Prepend a box
@@ -147,14 +175,14 @@ DynamicGrid.prototype.PrependAndPositionBox = function(text, color, interval) {
 	prependedBox.data(IS_REMINDER, ((interval > 0) ? true : false));
 
 	// 3. Readjust all boxes
-	this.ReadjustBoxes();
+	this.ReadjustAndAnimate(0, INSERT_BOX);
 };
 
 // Remove a box at index = [index] from grid
 DynamicGrid.prototype.RemoveBox = function(box) {
 	// Remove the box and readjust
 	box.remove();
-	this.ReadjustBoxes();
+	this.ReadjustAndAnimate(0, DELETE_BOX);
 };
 
 

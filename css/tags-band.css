@@ -1,0 +1,27 @@
+.tag_container {
+	width:850px;
+	height: 175px;
+	margin: auto;
+	margin-top: 10px;
+	/*background-color: red;*/
+}
+
+.tag_box {
+	display: block;
+	float: left;
+	width: 160px;
+	height: 175px;
+	background-color: blue;
+	margin-right: 10px;
+	position: relative;
+}
+
+.tag_box_bottom_bar {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 35px;
+	background-color: yellow;
+}
+
