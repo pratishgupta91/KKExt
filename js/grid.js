@@ -8,7 +8,7 @@ function DynamicGrid() {
 
 	// Max 7 cols supported
 	var columnHeights;
-    var boxPos;
+	var boxPos;
 
 	// Functions
 	this.InitGridElem = function() {
@@ -146,7 +146,7 @@ DynamicGrid.prototype.CreateBox = function(text, color) {
 };
 
 // Append a box
-DynamicGrid.prototype.AppendAndPositionBox = function(text, color, interval) {
+DynamicGrid.prototype.AppendAndPositionBox = function(text, color, interval, id) {
 
 	// 1. Add box to grid at pos (0, 0)
 	var boxScript = this.CreateBox(text, color);
@@ -157,13 +157,14 @@ DynamicGrid.prototype.AppendAndPositionBox = function(text, color, interval) {
 	var appendedBox = this.GetBoxElem(index);
 	this.SetFontSize(appendedBox, text.length);
 	appendedBox.data(IS_REMINDER, ((interval > 0) ? true : false));
+	appendedBox.data(NOTE_ID, id);
 
 	// 3. Position the box at appropriate coordinates
     this.ReadjustAndAnimate(index, INSERT_BOX);
 };
 
 // Prepend a box
-DynamicGrid.prototype.PrependAndPositionBox = function(text, color, interval) {
+DynamicGrid.prototype.PrependAndPositionBox = function(text, color, interval, id) {
 
 	// 1. Add box to grid at pos (0, 0)
 	var boxScript = this.CreateBox(text, color);
@@ -173,6 +174,7 @@ DynamicGrid.prototype.PrependAndPositionBox = function(text, color, interval) {
 	var prependedBox = this.GetBoxElem(0 /* index */);
 	this.SetFontSize(prependedBox, text.length);
 	prependedBox.data(IS_REMINDER, ((interval > 0) ? true : false));
+	prependedBox.data(NOTE_ID, id);
 
 	// 3. Readjust all boxes
 	this.ReadjustAndAnimate(0, INSERT_BOX);

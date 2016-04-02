@@ -5,8 +5,7 @@ function ChromeHelper() {
 
 }
 
-
-ChromeHelper.prototype.RetrieveItems = function(data, callback) {
+ChromeHelper.RetrieveItems = function(data, callback) {
 	chrome.storage.sync.get(data, function(items) {
 		if (chrome.runtime.error) {
 			callback(null);
@@ -17,11 +16,11 @@ ChromeHelper.prototype.RetrieveItems = function(data, callback) {
 	});
 };
 
-ChromeHelper.prototype.RetrieveNotes = function(callback) {
+ChromeHelper.RetrieveNotes = function(callback) {
 	this.RetrieveItems(notes, callback);
 };
 
-ChromeHelper.prototype.StoreNoteAt = function(index, note) {
+ChromeHelper.StoreNoteAt = function(index, note) {
 	this.RetrieveNotes(function(items) {
 		if (items && items.notes) {
 			items.notes.splice(index, 0, note);
@@ -35,7 +34,7 @@ ChromeHelper.prototype.StoreNoteAt = function(index, note) {
 	});
 };
 
-ChromeHelper.prototype.RemoveNoteAt = function(index) {
+ChromeHelper.RemoveNoteAt = function(index) {
 	this.RetrieveNotes(function(items) {
 		if (items) {
 			items.notes.splice(index, 1 /* count of items to be deleted at index */);
@@ -44,7 +43,7 @@ ChromeHelper.prototype.RemoveNoteAt = function(index) {
 	});
 };
 
-ChromeHelper.prototype.Notify = function(id, notificationTemplate) {
+ChromeHelper.Notify = function(id, notificationTemplate) {
 	if (chrome.notifications.getPermissionLevel) {
 		chrome.notifications.getPermissionLevel(function (permissionLevel) {
 			if (permissionLevel === 'granted') {
@@ -54,11 +53,11 @@ ChromeHelper.prototype.Notify = function(id, notificationTemplate) {
 	}
 };
 
-ChromeHelper.prototype.RetrieveQuote = function(callback) {
+ChromeHelper.RetrieveQuote = function(callback) {
 	this.RetrieveItems(quote, callback);
 };
 
-ChromeHelper.prototype.StoreQuote = function(updatedQuote) {
+ChromeHelper.StoreQuote = function(updatedQuote) {
 	newQuote = [];
 	newQuote.push(updatedQuote);
 	chrome.storage.sync.set({quote : newQuote});

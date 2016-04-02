@@ -5,8 +5,7 @@
 }
 
 .grid {
-  background-color: red;
-	width: 90%;
+  width: 80%;
 	position: relative;
 	height: auto;
 	margin: auto;
@@ -16,16 +15,16 @@ ul {
 	list-style: none;
 }
 
-li {
-	padding: 10px;
-	width: 32%;
-	height: auto;
-	margin-right: 1%;
-	color: black;
-	margin-top: 8px;
-	position: absolute;
-	box-shadow: 3px 3px 3px #888888;
-	line-height: 110%;
+.square_box {
+  padding: 10px;
+  width: 32%;
+  height: auto;
+  margin-right: 1%;
+  color: black;
+  margin-top: 8px;
+  position: absolute;
+  box-shadow: 3px 3px 3px #888888;
+  line-height: 110%;
 }
 
 .bottomBar{

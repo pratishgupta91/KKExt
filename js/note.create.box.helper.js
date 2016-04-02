@@ -66,10 +66,11 @@ NoteCreateBoxHelper.prototype.GetNoteColor = function() {
 	return this.noteColors[getRandomInt(0, (this.noteColors.length - 1))];
 };
 
-NoteCreateBoxHelper.prototype.CreateNote = function() {
+NoteCreateBoxHelper.prototype.CreateNote = function(index) {
 	var noteText = this.GetNoteTextAndReset();
 	if(noteText.length > 0) {
 		var note = {
+			"id": index,
 			"text": noteText,
 			"color": this.GetNoteColor(),
 			"lastReminded": +new Date(),
