@@ -10,6 +10,8 @@ var DELETE_BOX =         "203";
 var TagConainer_CN      =        ".tag_container";
 var TagBox_CN           =        ".tag_box";
 var TagBoxBottomBar_CN  =        ".tag_box_bottom_bar";
+var TagBoxBigText_CN    =        ".tag_box_big_text";
+
 var SquareBox_CN        =        ".square_box";
 
 // Events

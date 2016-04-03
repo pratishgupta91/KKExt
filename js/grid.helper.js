@@ -1,5 +1,3 @@
-var dynamicGrid;
-
 $(document).ready(function() {
 
 	dynamicGrid = new DynamicGrid();
@@ -61,10 +59,13 @@ $(document).ready(function() {
 		dataCacheHelper.GetNewNoteIndex(function(newNodeIndex) {
 			var note = noteCreateBoxHelper.CreateNote(newNodeIndex);
 			if(note) {
-				dynamicGrid.PrependAndPositionBox(note.text, note.color, note.interval, note.id);
+				if(note.ID_TAG_INDEX == tagBandHelper.GetSelectedIndex()) {
+					dynamicGrid.PrependAndPositionBox(note.text, note.color, note.interval, note.id);
+				}
 				dataCacheHelper.StoreNoteAt(0 /* index */, note);
 			}
 			noteCreateBoxHelper.CollapseOptionsBand();
+			uiManager.RefreshTagBand();
 		});
 	});
 
@@ -91,6 +92,7 @@ $(document).ready(function() {
 	tagBandHelper.GetTagBandElem().on(CLICK_EVENT, TagBoxHelper.GetTagBoxClass(), function(e) {
 		var tagBox = ($(this));
 		var tagIndex = TagBoxHelper.GetTagBoxIndex(tagBox);
+		tagBandHelper.TagBoxClicked(tagIndex);
 		uiManager.AddNotesToUI(tagIndex);
 	});
 });

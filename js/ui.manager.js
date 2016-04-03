@@ -42,6 +42,11 @@ UIManager.prototype.AddAllTagsToUI = function() {
     });
 };
 
+UIManager.prototype.RefreshTagBand = function() {
+    this.tagBandHelper.RemoveAllTagBoxes();
+    this.AddAllTagsToUI();
+};
+
 UIManager.prototype.AttachReminders = function() {
     // 1. Add the notes to UI
     // this.dataCacheHelper.GetAllNotes(function(notes) {
