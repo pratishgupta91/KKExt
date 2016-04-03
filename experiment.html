@@ -24,16 +24,34 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <ul class="tag_container">
-                        <li class="tag_box">
-                            <div class="tag_box_bottom_bar"></div>
+                        <!-- <li class="tag_box" style="background-color:orange;">
+                            <div class="tag_box_bottom_bar">
+                                <div class="tag_name">Work</div>
+                                <div class="tag_box_bottom_bar_separator">&middot;</div>
+                                <div class="tag_note_count">5 notes</div>
+                            </div>
                         </li>
-                        <li class="tag_box">
-                            <div class="tag_box_bottom_bar"></div>
+                        <li class="tag_box" style="background-color:blue;">
+                            <div class="tag_box_bottom_bar">
+                                <div class="tag_name">Work</div>
+                                <div class="tag_box_bottom_bar_separator">&middot;</div>
+                                <div class="tag_note_count">5 notes</div>
+                            </div>
                         </li>
-                        <li class="tag_box">
-                            <div class="tag_box_bottom_bar"></div>
+                        <li class="tag_box" style="background-color:red;">
+                            <div class="tag_box_bottom_bar">
+                                <div class="tag_name">Work</div>
+                                <div class="tag_box_bottom_bar_separator">&middot;</div>
+                                <div class="tag_note_count">5 notes</div>
+                            </div>
                         </li>
-                        <li class="tag_box"></li>
+                        <li class="tag_box" style="background-color:green">
+                            <div class="tag_box_bottom_bar">
+                                <div class="tag_name">Work</div>
+                                <div class="tag_box_bottom_bar_separator">&middot;</div>
+                                <div class="tag_note_count">5 notes</div>
+                            </div>
+                        </li> -->
                     </div>
                 </div>
             </div>
@@ -49,6 +67,12 @@
 								<option value="6">Every six hours</option>
 								<option value="24">Every day</option>
 							</select>
+                            <select class="add_tags" id="addtags" name="addtags">
+                                <option value="0">Work</option>
+                                <option value="1">Personal</option>
+                                <option value="2">Social</option>
+                                <option value="3">Other</option>
+                            </select>
 						</div>
 	                </div>
                     <ul class="grid"></ul>
@@ -67,12 +91,14 @@
     <script src="js/resource.js"></script>
     <script src="js/grid.js"></script>
     <script src="js/chrome.helper.js"></script>
+    <script src="js/tag.creator.js"></script>
     <script src="js/data.cache.helper.js"></script>
     <script src="js/tag.band.helper.js"></script>
     <script src="js/note.create.box.helper.js"></script>
     <script src="js/reminder.helper.js"></script>
     <script src="js/box.helper.js"></script>
     <script src="js/quote.helper.js"></script>
+    <script src="js/ui.manager.js"></script>
     <script src="js/grid.helper.js"></script>
     <script src="js/utils.js"></script>
 

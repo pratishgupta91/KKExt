@@ -62,6 +62,10 @@ NoteCreateBoxHelper.prototype.GetReminderInterval = function() {
 	return parseInt($('select[name=remindertime]').val());
 };
 
+NoteCreateBoxHelper.prototype.GetNoteTag = function() {
+	return parseInt($('select[name=addtags]').val());
+};
+
 NoteCreateBoxHelper.prototype.GetNoteColor = function() {
 	return this.noteColors[getRandomInt(0, (this.noteColors.length - 1))];
 };
@@ -74,7 +78,8 @@ NoteCreateBoxHelper.prototype.CreateNote = function(index) {
 			"text": noteText,
 			"color": this.GetNoteColor(),
 			"lastReminded": +new Date(),
-			"interval" : this.GetReminderInterval()
+			"interval": this.GetReminderInterval(),
+			ID_TAG_INDEX: this.GetNoteTag()
 		};
 		return note;
 	}

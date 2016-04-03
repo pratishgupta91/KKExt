@@ -3,13 +3,39 @@ function DataCacheHelper () {
 	var notes;
 }
 
-DataCacheHelper.prototype.GetAllTags = function() {
-	this.tags = ["Work", "Personal", "Others"];
-	return this.tags;
+DataCacheHelper.prototype.GetAllTags = function(callback) {
+	if(this.tags) {
+		callback(this.tags)
+	}
+	else {
+		var that = this;
+		//this.tags = ["Work", "Personal", "Others"];
+		this.GetAllNotes(function(notes){
+			noteCounts = new Array(MAX_TAGS).fill(0);
+			if(notes) {
+				notes.forEach(function(note) {
+					noteCounts[note.ID_TAG_INDEX]++;
+				});
+
+				that.tags = [];
+				for(var i = 0; i < noteCounts.length; ++i) {
+					var tag = TagCreator.CreateTag(i, noteCounts[i]);
+					that.tags.push(tag);
+				}
+				callback(that.tags);
+			}
+		});
+	}
 };
 
-DataCacheHelper.prototype.GetTagAt = function(index) {
-	return this.tags[index];
+DataCacheHelper.prototype.GetTagNameAt = function(index) {
+	var tagName = ["Work", "Personal", "Social", "Others"];
+	return tagName[index];
+};
+
+DataCacheHelper.prototype.GetTagColorAt = function(index) {
+	var tagColor = ["Red", "Blue", "Orange", "Green"];
+	return tagColor[index];
 };
 
 DataCacheHelper.prototype.GetAllNotes = function(callback) {

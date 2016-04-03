@@ -136,6 +136,19 @@ input:focus{
 	border-radius:5px;
 }
 
+.add_tags {
+	background-color:#ffffff;
+	font-family:'Open Sans', sans-serif;
+	font-size:15px;
+	padding:10px 10px;
+	height: 40px;
+	text-decoration:none;
+	position:relative;
+	float: right;
+	margin-right: 10px;
+	border-radius:5px;
+}
+
 .footer_quote {
 	position:fixed;
 	bottom: 0px;

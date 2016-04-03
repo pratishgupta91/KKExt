@@ -187,5 +187,8 @@ DynamicGrid.prototype.RemoveBox = function(box) {
 	this.ReadjustAndAnimate(0, DELETE_BOX);
 };
 
+DynamicGrid.prototype.RemoveAllBoxes = function() {
+	$(SquareBox_CN).remove();
+};
 
 
