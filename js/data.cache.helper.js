@@ -91,6 +91,16 @@ DataCacheHelper.prototype.StoreNoteAt = function(index, note) {
 	});
 };
 
+DataCacheHelper.prototype.IncrementTagCount = function(tagIndex) {
+	this.tags[tagIndex].ID_TAG_NOTE_COUNT++;
+};
+
+DataCacheHelper.prototype.DecrementTagCount = function(tagIndex) {
+	if(this.tags[tagIndex].ID_TAG_NOTE_COUNT > 0) {
+		this.tags[tagIndex].ID_TAG_NOTE_COUNT--;
+	}
+};
+
 DataCacheHelper.prototype.RemoveNoteAt = function(index) {
 
 	var that = this;
@@ -121,3 +131,12 @@ DataCacheHelper.prototype.GetNewNoteIndex = function(callback) {
 	});
 };
 
+DataCacheHelper.prototype.GetNoteAt = function(index) {
+	var desiredNote;
+	this.notes.forEach(function(note) {
+		if(note.id == index) {
+			desiredNote = note;
+		}
+	});
+	return desiredNote;
+};

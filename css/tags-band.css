@@ -1,5 +1,12 @@
-.tag_container {
+.tag_title {
 	width:60%;
+	margin:auto;
+	height:30px;
+	font-size: 25px;
+	font-weight: 100;
+}
+.tag_container {
+	width:80%;
 	height: auto;
 	margin: auto;
 	margin-top: 10px;

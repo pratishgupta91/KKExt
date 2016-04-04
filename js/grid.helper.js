@@ -59,10 +59,11 @@ $(document).ready(function() {
 		dataCacheHelper.GetNewNoteIndex(function(newNodeIndex) {
 			var note = noteCreateBoxHelper.CreateNote(newNodeIndex);
 			if(note) {
-				if(note.ID_TAG_INDEX == tagBandHelper.GetSelectedIndex()) {
+				if((note.ID_TAG_INDEX == tagBandHelper.GetSelectedIndex()) ||(ALL_TAGS == tagBandHelper.GetSelectedIndex())) {
 					dynamicGrid.PrependAndPositionBox(note.text, note.color, note.interval, note.id);
 				}
 				dataCacheHelper.StoreNoteAt(0 /* index */, note);
+				dataCacheHelper.IncrementTagCount(note.ID_TAG_INDEX);
 			}
 			noteCreateBoxHelper.CollapseOptionsBand();
 			uiManager.RefreshTagBand();
@@ -74,8 +75,11 @@ $(document).ready(function() {
 	dynamicGrid.GetGridElem().on(CLICK_EVENT, BoxHelper.GetDeleteButtonClass(), function(e) {
 		var box = BoxHelper.GetBoxFromChildElem($(this));
 		var noteIndex = box.data(NOTE_ID);
+		var note = dataCacheHelper.GetNoteAt(noteIndex);
 		dataCacheHelper.RemoveNoteAt(noteIndex);
+		dataCacheHelper.DecrementTagCount(note.ID_TAG_INDEX);
 		dynamicGrid.RemoveBox(box);
+		uiManager.RefreshTagBand();
 	});
 
 	// 2. Mouse enter listener
