@@ -28,24 +28,22 @@ var reminderButtonClass = ".reminder_icon";
 
 /* static */ BoxHelper.HideBottomBar = function(boxElem) {
 	var bottomBarElem = boxElem.find(bottomBarClass);
-	bottomBarElem.css("visibility", 'hidden');
+	bottomBarElem.animate({opacity: 0}, 'fast', function() {
+		bottomBarElem.css('visibility', 'hidden');
+	});
+
+	//bottomBarElem.fadeTo("fast", 0);
+	//bottomBarElem.css("visibility", 'hidden');
 };
 
 /* static */ BoxHelper.ShowBottomBar = function(boxElem) {
 
 	// 1. Show bottombar
 	var bottomBarElem = boxElem.find(bottomBarClass);
-	bottomBarElem.css("visibility", 'visible');
+	bottomBarElem.animate({opacity: 1}, 'fast', function() {
+		bottomBarElem.css('visibility', 'visible');
+	});
+	//bottomBarElem.css("visibility", 'visible');
 
 	// 2. Check for all the options to be shown
-
-	// 2.1 Reminder option
-	var isReminderAttached = boxElem.data(IS_REMINDER);
-	var reminderButtonElem = bottomBarElem.find(reminderButtonClass);
-	if(isReminderAttached) {
-		reminderButtonElem.show();
-	}
-	else {
-		reminderButtonElem.hide();
-	}
 };

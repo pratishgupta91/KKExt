@@ -8,7 +8,12 @@ function getTime()
 	var hours = (currentdate.getHours() >= 10) ? currentdate.getHours() : "0" + currentdate.getHours();
 	var minutes = (currentdate.getMinutes() >= 10) ? currentdate.getMinutes() : "0" + currentdate.getMinutes();
     var currentTime =  hours + ":" + minutes;
-    document.getElementById("time").innerHTML = currentTime;
+    //document.getElementById("time").innerHTML = currentTime;
+}
+
+function GetReminderRatio(created, interval) {
+	var curTime = +new Date();
+    return (curTime - created)  / interval;
 }
 
 function getGreetings()

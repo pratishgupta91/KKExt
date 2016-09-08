@@ -1,5 +1,6 @@
-var notes = 'notes';
-var quote = 'quote';
+var notes            = 'notes';
+var quote            = 'quote';
+var note_visibility  = 'note_visibility';
 
 function ChromeHelper() {
 
@@ -10,21 +11,31 @@ ChromeHelper.RetrieveItems = function(data, callback) {
 		if (chrome.runtime.error) {
 			callback(null);
 		}
-		else {
+		else if(items) {
 			callback(items);
+		}
+		else {
+			callback(null);
 		}
 	});
 };
 
 ChromeHelper.RetrieveNotes = function(callback) {
-	this.RetrieveItems(notes, callback);
+	this.RetrieveItems(notes, function(items) {
+		if(items && items.notes) {
+			callback(items.notes);
+		}
+		else {
+			callback(null);
+		}
+	});
 };
 
 ChromeHelper.StoreNoteAt = function(index, note) {
-	this.RetrieveNotes(function(items) {
-		if (items && items.notes) {
-			items.notes.splice(index, 0, note);
-			chrome.storage.sync.set({notes : items.notes});
+	this.RetrieveNotes(function(storedNotes) {
+		if (storedNotes) {
+			storedNotes.splice(index, 0, note);
+			chrome.storage.sync.set({notes : storedNotes});
 		}
 		else {	
 			firstNote = [];
@@ -35,10 +46,10 @@ ChromeHelper.StoreNoteAt = function(index, note) {
 };
 
 ChromeHelper.RemoveNoteAt = function(index) {
-	this.RetrieveNotes(function(items) {
-		if (items) {
-			items.notes.splice(index, 1 /* count of items to be deleted at index */);
-			chrome.storage.sync.set({notes : items.notes});
+	this.RetrieveNotes(function(storedNotes) {
+		if (storedNotes) {
+			storedNotes.splice(index, 1 /* count of items to be deleted at index */);
+			chrome.storage.sync.set({notes : storedNotes});
 		}
 	});
 };
@@ -54,7 +65,14 @@ ChromeHelper.Notify = function(id, notificationTemplate) {
 };
 
 ChromeHelper.RetrieveQuote = function(callback) {
-	this.RetrieveItems(quote, callback);
+	this.RetrieveItems(quote, function(items) {
+		if(items && items.quote) {
+			callback(items.quote);
+		}
+		else {
+			callback(null);
+		}
+	});
 };
 
 ChromeHelper.StoreQuote = function(updatedQuote) {
@@ -62,3 +80,18 @@ ChromeHelper.StoreQuote = function(updatedQuote) {
 	newQuote.push(updatedQuote);
 	chrome.storage.sync.set({quote : newQuote});
 };
+
+ChromeHelper.StoreNoteVisibility = function(visibility) {
+	chrome.storage.sync.set({note_visibility : visibility});
+}
+
+ChromeHelper.RetrieveNoteVisibility = function(callback) {
+	this.RetrieveItems(note_visibility, function(items) {
+		if(items && items.note_visibility != null) {
+			callback(items.note_visibility);
+		}
+		else {
+			callback(null);
+		}
+	});
+}

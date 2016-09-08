@@ -11,8 +11,16 @@ var TagConainer_CN      =        ".tag_container";
 var TagBox_CN           =        ".tag_box";
 var TagBoxBottomBar_CN  =        ".tag_box_bottom_bar";
 var TagBoxBigText_CN    =        ".tag_box_big_text";
-
+var NotesViewSwitch_CN  =        ".notes-visible-mode";
+var ReminderBar_CN      =        ".reminder-bar";
 var SquareBox_CN        =        ".square_box";
+var NoteCreateBox_CN    =        ".createbox";
+var HelpNoteHidden_CN   =        ".hidden-note";
+
+var SettingsBox_CN      =        ".settings-box";
+var SettingButton_CN    =        ".settings-icon";
+var SettingsOption_CN   =        ".settings-option";
+var NoteVisibility_CN   =        ".settings-note-visibility-checkbox";
 
 // Events
 var CLICK_EVENT         =        "click";
@@ -24,3 +32,9 @@ var ALL_TAGS            =        -1;
 var ID_TAG_INDEX        =        "tag_index";
 var ID_TAG_NOTE_COUNT   =        "tag_note_count";
 var MAX_TAGS            =        4;
+
+// Help text state
+var NO_HELP             =        0;
+var HELP_NOTE_HIDDEN    =        1;
+var HELP_NO_NOTE        =        2;
+

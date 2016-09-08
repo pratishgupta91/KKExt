@@ -28,6 +28,14 @@ NoteCreateBoxHelper.prototype.Initialize = function() {
 	this.CollapseOptionsBand();
 };
 
+NoteCreateBoxHelper.prototype.RemoveNoteCreatorFromUI = function() {
+    $(NoteCreateBox_CN).css("visibility", "hidden");
+}
+
+NoteCreateBoxHelper.prototype.AddNoteCreatorToUI = function() {
+    $(NoteCreateBox_CN).css("visibility", "visible");
+}
+
 NoteCreateBoxHelper.prototype.GetDoneButton = function() {
 	return this.doneButtonElem;
 };
@@ -62,24 +70,20 @@ NoteCreateBoxHelper.prototype.GetReminderInterval = function() {
 	return parseInt($('select[name=remindertime]').val());
 };
 
-NoteCreateBoxHelper.prototype.GetNoteTag = function() {
-	return parseInt($('select[name=addtags]').val());
-};
 
 NoteCreateBoxHelper.prototype.GetNoteColor = function() {
 	return this.noteColors[getRandomInt(0, (this.noteColors.length - 1))];
 };
 
-NoteCreateBoxHelper.prototype.CreateNote = function(index) {
+NoteCreateBoxHelper.prototype.CreateNote = function() {
 	var noteText = this.GetNoteTextAndReset();
 	if(noteText.length > 0) {
 		var note = {
-			"id": index,
 			"text": noteText,
 			"color": this.GetNoteColor(),
-			"lastReminded": +new Date(),
+			"created": +new Date(),
 			"interval": this.GetReminderInterval(),
-			ID_TAG_INDEX: this.GetNoteTag()
+			ID_TAG_INDEX: -1
 		};
 		return note;
 	}

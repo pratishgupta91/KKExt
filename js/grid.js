@@ -134,9 +134,20 @@ DynamicGrid.prototype.SetFontSize = function(box, textLength) {
 	box.css('font-size', fontSize);
 };
 
+DynamicGrid.prototype.SetReminderWidth = function(boxElem, ratio) {
+	var reminderBarElem = boxElem.find(ReminderBar_CN);
+	var boxWidth = boxElem.outerWidth(true);
+	var reminderWidth = ratio * boxWidth;
+
+	if(reminderWidth < boxWidth) {
+		reminderBarElem.css("width", reminderWidth + "px");
+	}
+}
+
 // Create box script
 DynamicGrid.prototype.CreateBox = function(text, color) {
 	var boxScript = "<li class='square_box' style='background-color:" + color + "'>";
+	boxScript += "<div class='reminder-bar'></div>";
 	boxScript += "<div class='mainContent'>" + text + "</div>";
 	boxScript += "<div class='bottomBar'>";
 	boxScript += "<i class='fa fa-times fa-lg delete'></i>";
@@ -146,7 +157,7 @@ DynamicGrid.prototype.CreateBox = function(text, color) {
 };
 
 // Append a box
-DynamicGrid.prototype.AppendAndPositionBox = function(text, color, interval, id) {
+DynamicGrid.prototype.AppendAndPositionBox = function(text, color, reminderRatio, id) {
 
 	// 1. Add box to grid at pos (0, 0)
 	var boxScript = this.CreateBox(text, color);
@@ -156,15 +167,16 @@ DynamicGrid.prototype.AppendAndPositionBox = function(text, color, interval, id)
 	var index = (this.GetBoxCount() - 1);
 	var appendedBox = this.GetBoxElem(index);
 	this.SetFontSize(appendedBox, text.length);
-	appendedBox.data(IS_REMINDER, ((interval > 0) ? true : false));
-	appendedBox.data(NOTE_ID, id);
 
-	// 3. Position the box at appropriate coordinates
+	// 3. Set reminder
+	this.SetReminderWidth(appendedBox, reminderRatio);
+
+	// 4. Position the box at appropriate coordinates
     this.ReadjustAndAnimate(index, INSERT_BOX);
 };
 
 // Prepend a box
-DynamicGrid.prototype.PrependAndPositionBox = function(text, color, interval, id) {
+DynamicGrid.prototype.PrependAndPositionBox = function(text, color, reminderRatio, id) {
 
 	// 1. Add box to grid at pos (0, 0)
 	var boxScript = this.CreateBox(text, color);
@@ -173,10 +185,11 @@ DynamicGrid.prototype.PrependAndPositionBox = function(text, color, interval, id
 	// 2. Set Font size
 	var prependedBox = this.GetBoxElem(0 /* index */);
 	this.SetFontSize(prependedBox, text.length);
-	prependedBox.data(IS_REMINDER, ((interval > 0) ? true : false));
-	prependedBox.data(NOTE_ID, id);
 
-	// 3. Readjust all boxes
+	// 3. Set reminder
+	this.SetReminderWidth(prependedBox, reminderRatio);
+
+	// 4. Readjust all boxes
 	this.ReadjustAndAnimate(0, INSERT_BOX);
 };
 

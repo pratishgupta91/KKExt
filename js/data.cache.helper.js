@@ -1,42 +1,9 @@
 function DataCacheHelper () {
 	var tags;
 	var notes;
+	var isNoteVisible = null;
 }
 
-DataCacheHelper.prototype.GetAllTags = function(callback) {
-	if(this.tags) {
-		callback(this.tags)
-	}
-	else {
-		var that = this;
-		//this.tags = ["Work", "Personal", "Others"];
-		this.GetAllNotes(function(notes){
-			noteCounts = new Array(MAX_TAGS).fill(0);
-			if(notes) {
-				notes.forEach(function(note) {
-					noteCounts[note.ID_TAG_INDEX]++;
-				});
-
-				that.tags = [];
-				for(var i = 0; i < noteCounts.length; ++i) {
-					var tag = TagCreator.CreateTag(i, noteCounts[i]);
-					that.tags.push(tag);
-				}
-				callback(that.tags);
-			}
-		});
-	}
-};
-
-DataCacheHelper.prototype.GetTagNameAt = function(index) {
-	var tagName = ["Work", "Personal", "Social", "Others"];
-	return tagName[index];
-};
-
-DataCacheHelper.prototype.GetTagColorAt = function(index) {
-	var tagColor = ["Red", "Blue", "Orange", "Green"];
-	return tagColor[index];
-};
 
 DataCacheHelper.prototype.GetAllNotes = function(callback) {
 
@@ -46,9 +13,9 @@ DataCacheHelper.prototype.GetAllNotes = function(callback) {
 	}
 	else {
 		var that = this;
-		ChromeHelper.RetrieveNotes(function(items) {
-			if(items && items.notes) {
-				that.notes = items.notes;
+		ChromeHelper.RetrieveNotes(function(notes) {
+			if(notes) {
+				that.notes = notes;
 				callback(that.notes);
 			}
 			else {
@@ -58,21 +25,6 @@ DataCacheHelper.prototype.GetAllNotes = function(callback) {
 	}
 };
 
-DataCacheHelper.prototype.GetTagSpecificNotes = function(tagIndex, callback) {
-	var tag = this.GetTagAt(tagIndex);
-
-	this.GetAllNotes(function(notes){
-		if(notes) {
-			var tagSpecificNotes = new Array();
-			notes.forEach(function(note) {
-				if(note.tag == tag) {
-					tagSpecificNotes.push(note);
-				}
-			});
-			callback(tagSpecificNotes);
-		}
-	});
-};
 
 DataCacheHelper.prototype.StoreNoteAt = function(index, note) {
 
@@ -91,15 +43,7 @@ DataCacheHelper.prototype.StoreNoteAt = function(index, note) {
 	});
 };
 
-DataCacheHelper.prototype.IncrementTagCount = function(tagIndex) {
-	this.tags[tagIndex].ID_TAG_NOTE_COUNT++;
-};
-
-DataCacheHelper.prototype.DecrementTagCount = function(tagIndex) {
-	if(this.tags[tagIndex].ID_TAG_NOTE_COUNT > 0) {
-		this.tags[tagIndex].ID_TAG_NOTE_COUNT--;
-	}
-};
+;
 
 DataCacheHelper.prototype.RemoveNoteAt = function(index) {
 
@@ -108,14 +52,8 @@ DataCacheHelper.prototype.RemoveNoteAt = function(index) {
 	// Change locally and update the server
 	this.GetAllNotes(function(notes){
 		if(notes) {
-			for(var i = 0; i < notes.length; ++i) {
-				if(notes[i].id == index) {
-					that.notes.splice(i, 1);
-					ChromeHelper.RemoveNoteAt(i);
-					break;
-				}
-			}
-			
+			that.notes.splice(index, 1);
+			ChromeHelper.RemoveNoteAt(index);
 		}
 	});
 };
@@ -140,3 +78,30 @@ DataCacheHelper.prototype.GetNoteAt = function(index) {
 	});
 	return desiredNote;
 };
+
+DataCacheHelper.prototype.SetNoteVisibility = function(visibility) {
+	this.isNoteVisible = visibility;
+	ChromeHelper.StoreNoteVisibility(visibility);
+};
+
+DataCacheHelper.prototype.GetNoteVisibility = function(callback) {
+	var that = this;
+	if(this.isNoteVisible == null) {
+		ChromeHelper.RetrieveNoteVisibility(function(visibility) {
+			if(visibility == null) {
+				// First time
+				ChromeHelper.StoreNoteVisibility(true);
+				callback(true);
+			}
+			else {
+				that.isNoteVisible = visibility;
+				callback(visibility);
+			}
+		})
+	}
+	else {
+		callback(this.isNoteVisible);
+	}
+}
+
+

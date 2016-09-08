@@ -1,0 +1,58 @@
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	 box-sizing:; border-box; 
+}
+
+.settings-box {
+	width : 0px;
+	height: 100%;
+	background-color: #ffffff;
+	float: right;
+	position: fixed;
+	top:60px;
+	right: 0px;
+	font-size: 15px;
+	z-index: 10;
+}
+
+.settings-padding {
+	height: 0px;
+}
+.settings-option {
+	margin-top: 5px;
+	width: 200px;
+	margin: auto;
+}
+
+.settings-note-visibility {
+	position: relative;
+	height: 40px;
+}
+
+.settings-note-visibility:hover {
+	background-color: #E39300;
+} 
+
+.settings-note-visibility-label {
+	position: absolute;
+	top: 0px;
+	left: 10px;
+	line-height: 40px;
+  	vertical-align: middle;
+}
+
+input[type="checkbox"] {
+  width: 56px; /*Desired width*/
+  height: 56px; /*Desired height*/
+}
+
+.settings-note-visibility-checkbox {
+	position: absolute;
+	top: 2px;
+	right: 10px;
+	height: 36px;
+	width: 36px;
+	background: green;
+}
+

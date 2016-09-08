@@ -8,13 +8,24 @@
 
     <!-- Custom CSS -->
     <link href="css/the-big-picture.css" rel="stylesheet">
+    <link href="css/slide.css" rel="stylesheet">
     <link href="css/exp.css" rel="stylesheet">
-    <link href="css/tags-band.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="css/settings.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
     <div>
+        <div class="settings-box">
+        </div>
+        <div class="topbar">
+            <div class="topbar-content">
+                <div class="topbar-title">WallNote</div>
+                <!-- <img src="img/visible.png" class="setting-options notes-visible-mode"> -->
+                <img src="img/menu.png" class="setting-options settings-icon">
+            </div>
+        </div> 
         <div class="container">
             <div class="row" style="margin-top:20px;">
                 <div class="col-md-12 col-sm-12" id="grid">
@@ -41,8 +52,9 @@
             </div>
             <div class="row" style="margin-bottom: 15px;">
                 <div class="col-md-12 col-sm-12">
-                    <!-- <div class="tag_title">Tags</div> -->
-                    <ul class="tag_container"></ul>
+                    <div class="help-text hidden-note" style="display:none;">
+                        <div>Your notes are hidden</div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -62,9 +74,8 @@
     <script src="js/resource.js"></script>
     <script src="js/grid.js"></script>
     <script src="js/chrome.helper.js"></script>
-    <script src="js/tag.creator.js"></script>
+    <script src="js/settings.js"></script>
     <script src="js/data.cache.helper.js"></script>
-    <script src="js/tag.band.helper.js"></script>
     <script src="js/note.create.box.helper.js"></script>
     <script src="js/reminder.helper.js"></script>
     <script src="js/box.helper.js"></script>
