@@ -8,26 +8,31 @@ $(document).ready(function() {
 
 	uiManager.GetNoteVisibilityStatus(function(isVisible) {
 		if(isVisible == true) {
-			uiManager.ShowUI();
+			uiManager.ShowNotesUI();
 		}
 		else {
-			uiManager.HideUI();
+			uiManager.HideNotesUI();
 		}
 	});
 
-	$(NotesViewSwitch_CN).click(function() {
+	$(NotesViewSwitch_CN).click(function(event) {
+		event.stopPropagation();
 		uiManager.ToggleNotesUI(function(isVisible) {
-			isVisible ? uiManager.ShowUI() : uiManager.HideUI();
+			isVisible ? uiManager.ShowNotesUI() : uiManager.HideNotesUI();
 		});
 	});
 
+	$(SettingButton_CN).click(function() {
+		uiManager.ToggleSettingsView(function(visibility){});
+	});
+	
 	// Dismiss sidebar when click outside
-	// $(window).click(function() {
-	// 	var v = uiManager.IsSettingsViewVisible();
-	// 	if(v) {
-	// 		uiManager.ToggleSettingsView(function(visibility){});
-	// 	}
-	// });
+	$(window).click(function() {
+		var v = uiManager.IsSettingsViewVisible();
+		if(v) {
+			uiManager.ToggleSettingsView(function(visibility){});
+		}
+	});
 
 });
 

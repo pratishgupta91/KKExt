@@ -19,40 +19,10 @@ UIManager.prototype.Initialize = function(dynamicGrid) {
     //this.reminderHelper = reminderHelper;
 };
 
-UIManager.prototype.ShowUI = function() {
-    this.ShowNotesUI();
-    this.AddNoteCreatorToUI();
-};
-
-UIManager.prototype.HideUI = function() {
-    this.HideNotesUI();
-    this.RemoveNoteCreatorFromUI();
-}
-
-UIManager.prototype.ToggleNotesUI = function(callback) {
-    var that = this;
-    this.GetNoteVisibilityStatus(function(isVisible) {
-        that.SetNoteVisibilityStatus(!isVisible);
-        if(isVisible) {
-            that.HideUI();
-        }
-        else {
-            that.ShowUI();
-        }
-        callback(!isVisible);
-    });
-}
-
-UIManager.prototype.ShowNotesUI = function() {
-    this.AddNotesToUI();
-};
-
-
-UIManager.prototype.HideNotesUI = function() {
-    this.dynamicGrid.GetGridElem().empty();
-};
-
-
+// -------------------------------------------
+// Notes UI 
+// Adds the events to the notes
+// -------------------------------------------
 UIManager.prototype.AddBoxEvents = function() {
     // 1. Delete button listener
     this.dynamicGrid.GetGridElem().on(CLICK_EVENT, BoxHelper.GetDeleteButtonClass(), function(e) {
@@ -72,6 +42,10 @@ UIManager.prototype.AddBoxEvents = function() {
     });
 }
 
+// -------------------------------------------
+// Notes UI 
+// Adds the events to the creator box
+// -------------------------------------------
 UIManager.prototype.AddNoteCreatorBoxEvents = function() {
     // Edit box click listener
     var that = this;
@@ -87,17 +61,10 @@ UIManager.prototype.AddNoteCreatorBoxEvents = function() {
     });
 }
 
-UIManager.prototype.RemoveNoteCreatorFromUI = function() {
-    this.noteCreateBoxHelper.RemoveNoteCreatorFromUI();
-}
-
-UIManager.prototype.AddNoteCreatorToUI = function() {
-    this.noteCreateBoxHelper.AddNoteCreatorToUI();
-    this.AddNoteCreatorBoxEvents();
-}
-
-
-// First time when the notes get added
+// -------------------------------------------
+// Notes UI 
+// Adds the view of notes to UI
+// -------------------------------------------
 UIManager.prototype.AddNotesToUI = function() {
     var that = this;
 
@@ -113,14 +80,55 @@ UIManager.prototype.AddNotesToUI = function() {
             that.AddBoxEvents();
         }
     });
-
-
 };
 
+// -------------------------------------------
+// Notes UI 
+// Adds the view of notes and creator box to UI
+// -------------------------------------------
+UIManager.prototype.ShowNotesUI = function() {
+    this.AddNotesToUI();
+    this.noteCreateBoxHelper.AddNoteCreatorToUI();
+    this.AddNoteCreatorBoxEvents();
+};
+
+
+// -------------------------------------------
+// Notes UI 
+// Remove the view of notes and creator 
+// box from UI
+// -------------------------------------------
+UIManager.prototype.HideNotesUI = function() {
+    this.dynamicGrid.GetGridElem().empty();
+    this.noteCreateBoxHelper.RemoveNoteCreatorFromUI();
+}
+
+// -------------------------------------------
+// Notes UI 
+// Toggles the view of notes and creator box
+// -------------------------------------------
+UIManager.prototype.ToggleNotesUI = function(callback) {
+    var that = this;
+    this.GetNoteVisibilityStatus(function(isVisible) {
+        that.SetNoteVisibilityStatus(!isVisible);
+        if(isVisible) {
+            that.HideNotesUI();
+        }
+        else {
+            that.ShowNotesUI();
+        }
+        callback(!isVisible);
+    });
+}
+
+// -------------------------------------------
+// Notes UI 
+//
 // When user adds a note, 
 // 1. The note gets added in data cache helper
 // 2. The note gets added in chrome storage 
 // 3. The note gets added in UI 
+// -------------------------------------------
 UIManager.prototype.AddNoteToUI = function(note) {
     var that = this;
     this.dataCacheHelper.GetNewNoteIndex(function(newNodeIndex) {
@@ -131,10 +139,14 @@ UIManager.prototype.AddNoteToUI = function(note) {
     });
 }
 
+// -------------------------------------------
+// Notes UI 
+//
 // When user deletes a note, 
 // 1. The note gets deleted from data cache helper
 // 2. The note gets deleted from chrome storage 
 // 3. The note gets removed from UI
+// -------------------------------------------
 UIManager.prototype.DeleteNoteFromUI = function(noteIndex) {
     var note = this.dataCacheHelper.GetNoteAt(noteIndex);
     this.dataCacheHelper.RemoveNoteAt(noteIndex);
@@ -142,61 +154,80 @@ UIManager.prototype.DeleteNoteFromUI = function(noteIndex) {
     this.dynamicGrid.RemoveBox(box);
 }
 
+
+// -------------------------------------------
+// Notes UI 
+// Stores the current visibility in cache 
+// and storage
+// -------------------------------------------
 UIManager.prototype.SetNoteVisibilityStatus = function(visibility) {
     this.dataCacheHelper.SetNoteVisibility(visibility);
 }
 
+// -------------------------------------------
+// Notes UI 
+// Retrieves the current visibility from cache and storage
+// -------------------------------------------
 UIManager.prototype.GetNoteVisibilityStatus = function(callback) {
     this.dataCacheHelper.GetNoteVisibility(function(visibility){
         callback(visibility);
     })
 }
 
-UIManager.prototype.SettingsNoteVisibilityListener = function() {
-    var that = this;
-    this.settingsHelper.SettingsNoteVisibilityEvent(function(ack) {
-        that.ToggleNotesUI(function(visibility) {
-            ack(visibility);
-        });
-    })
-}
+// ---------------------------------Notes UI ends----------------------------------------->
 
-UIManager.prototype.ToggleSettingsView = function(visibility) {
-    var that = this;
-    this.GetNoteVisibilityStatus(function(visibility) {
-        that.settingsHelper.ToggleSettingsView(visibility, function(isVisible) {
-            if(isVisible) {
-                that.SettingsNoteVisibilityListener();
-            }
-            callback(visibility);
-        });
-    });
-}
 
+// -------------------------------------------
+// Settings UI
+// Check if settings UI is visible
+// --------------------------------------------
 UIManager.prototype.IsSettingsViewVisible = function() {
-    var v = this.settingsHelper.IsSettingsCollapsed();
+    var v = this.settingsHelper.IsSettingsBoxCollapsed();
     if(v) return false;
     return true;
     //return (!this.settingsHelper.IsSettingsCollapsed());
 }
 
-UIManager.prototype.AttachReminders = function() {
-    // 1. Add the notes to UI
-    // this.dataCacheHelper.GetAllNotes(function(notes) {
-    //     if (notes) {
-    //         reminderHelper.ResetReminderItems();
-    //         notes.forEach(function(note) {
-    //             if((note.tagIndex == tagIndex) || (tagIndex == ALL_TAGS)) {
-    //                 dynamicGrid.AppendAndPositionBox(note);
-    //                 reminderHelper.PushReminderItems(note);
-    //             }
-    //         });
-
-    //         var reminderItems = reminderHelper.GetReminderItems();
-    //         if (reminderItems) {
-    //             var reminderTemplate = reminderHelper.CreateReminderTemplate(reminderItems);
-    //             ChromeHelper.Notify('reminder', reminderTemplate);
-    //         }
-    //     }
-    // });
+// -------------------------------------------
+// Settings UI - Note visibility option
+// Listener to note visibility option setting 
+// click event
+// --------------------------------------------
+UIManager.prototype.NoteVisibilitySettingsOptionClickListener = function(callback) {
+    this.ToggleNotesUI(function(visibility) {
+        callback(visibility);
+    });
 };
+
+// -------------------------------------------
+// Settings UI - Note visibility option
+// Register note visibility option setting 
+// click event
+// --------------------------------------------
+UIManager.prototype.RegisterNoteVisibilitySettingsOptionClickEvent = function() {
+    var that = this;
+    this.GetNoteVisibilityStatus(function(visibility) {
+        if(visibility) { 
+            that.settingsHelper.RegisterNoteVisibilitySettingOptionClickEvent(function(callback) {
+                that.ToggleNotesUI(function(visibility) {
+                    callback(visibility);
+                });
+            });
+        }
+    });
+}
+
+// -------------------------------------------
+// Settings UI 
+// Toggle settings view 
+// --------------------------------------------
+UIManager.prototype.ToggleSettingsView = function(callback) {
+    var that = this;
+    this.GetNoteVisibilityStatus(function(noteVisibility) {
+        that.settingsHelper.ToggleSettingsBoxView(noteVisibility, function(visibility) {
+            that.RegisterNoteVisibilitySettingsOptionClickEvent();
+            callback(visibility);
+        });
+    });
+}
+
