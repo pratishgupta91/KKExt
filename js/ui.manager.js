@@ -25,10 +25,11 @@ UIManager.prototype.Initialize = function(dynamicGrid) {
 // -------------------------------------------
 UIManager.prototype.AddBoxEvents = function() {
     // 1. Delete button listener
+    var that = this;
     this.dynamicGrid.GetGridElem().on(CLICK_EVENT, BoxHelper.GetDeleteButtonClass(), function(e) {
         var box = BoxHelper.GetBoxFromChildElem($(this));
         var noteIndex = BoxHelper.GetBoxIndex(box);
-        this.DeleteNoteFromUI(noteIndex);
+        that.DeleteNoteFromUI(noteIndex);
     });
 
     // 2. Mouse enter listener
@@ -84,14 +85,35 @@ UIManager.prototype.AddNotesToUI = function() {
 
 // -------------------------------------------
 // Notes UI 
+// Adds the listener of show notes button 
+// when notes are hidden
+// -------------------------------------------
+UIManager.prototype.HelpTextShowNotesClickHandler = function() {
+    var that = this;
+    HelpText.HelpTextShowNotesClickHandler(function(callback) {
+        that.ToggleNotesUI(function(){});
+    })
+};
+
+// -------------------------------------------
+// Notes UI 
+// Adds the view of Help text when notes are hidden
+// -------------------------------------------
+UIManager.prototype.ShowHiddenNoteHelpText = function() {
+    HelpText.ShowHiddenNotesInformation();
+    this.HelpTextShowNotesClickHandler();
+};
+
+// -------------------------------------------
+// Notes UI 
 // Adds the view of notes and creator box to UI
 // -------------------------------------------
 UIManager.prototype.ShowNotesUI = function() {
     this.AddNotesToUI();
     this.noteCreateBoxHelper.AddNoteCreatorToUI();
     this.AddNoteCreatorBoxEvents();
+    HelpText.Hide();
 };
-
 
 // -------------------------------------------
 // Notes UI 
@@ -101,6 +123,7 @@ UIManager.prototype.ShowNotesUI = function() {
 UIManager.prototype.HideNotesUI = function() {
     this.dynamicGrid.GetGridElem().empty();
     this.noteCreateBoxHelper.RemoveNoteCreatorFromUI();
+    this.ShowHiddenNoteHelpText();
 }
 
 // -------------------------------------------
@@ -190,30 +213,17 @@ UIManager.prototype.IsSettingsViewVisible = function() {
 
 // -------------------------------------------
 // Settings UI - Note visibility option
-// Listener to note visibility option setting 
-// click event
-// --------------------------------------------
-UIManager.prototype.NoteVisibilitySettingsOptionClickListener = function(callback) {
-    this.ToggleNotesUI(function(visibility) {
-        callback(visibility);
-    });
-};
-
-// -------------------------------------------
-// Settings UI - Note visibility option
 // Register note visibility option setting 
 // click event
 // --------------------------------------------
 UIManager.prototype.RegisterNoteVisibilitySettingsOptionClickEvent = function() {
     var that = this;
-    this.GetNoteVisibilityStatus(function(visibility) {
-        if(visibility) { 
-            that.settingsHelper.RegisterNoteVisibilitySettingOptionClickEvent(function(callback) {
-                that.ToggleNotesUI(function(visibility) {
-                    callback(visibility);
-                });
+    this.GetNoteVisibilityStatus(function(noteVisibility) {
+        that.settingsHelper.RegisterNoteVisibilitySettingOptionClickEvent(function(callbackAck) {
+            that.ToggleNotesUI(function(noteVisibility) {
+                callbackAck(noteVisibility);
             });
-        }
+        });
     });
 }
 
@@ -224,9 +234,13 @@ UIManager.prototype.RegisterNoteVisibilitySettingsOptionClickEvent = function() 
 UIManager.prototype.ToggleSettingsView = function(callback) {
     var that = this;
     this.GetNoteVisibilityStatus(function(noteVisibility) {
-        that.settingsHelper.ToggleSettingsBoxView(noteVisibility, function(visibility) {
-            that.RegisterNoteVisibilitySettingsOptionClickEvent();
-            callback(visibility);
+        that.settingsHelper.ToggleSettingsBoxView(noteVisibility, function(settingsBoxVisibility) {
+
+            // If settings box is visible, register for events
+            if(settingsBoxVisibility) {
+                that.RegisterNoteVisibilitySettingsOptionClickEvent();
+            }
+            callback(settingsBoxVisibility);
         });
     });
 }

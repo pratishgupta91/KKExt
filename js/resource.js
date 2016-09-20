@@ -15,12 +15,18 @@ var NotesViewSwitch_CN  =        ".notes-visible-mode";
 var ReminderBar_CN      =        ".reminder-bar";
 var SquareBox_CN        =        ".square_box";
 var NoteCreateBox_CN    =        ".createbox";
+
 var HelpNoteHidden_CN   =        ".hidden-note";
+var HelpText_CN         =        ".help-text";
+var HelpTextBlock_CN    =        ".help-text-block";
+var HelpTextNoteBtn_CN  =        ".help-text-notes-hidden-button";
 
 var SettingsBox_CN      =        ".settings-box";
 var SettingButton_CN    =        ".settings-icon";
 var SettingsOption_CN   =        ".settings-option";
-var NoteVisibility_CN   =        ".settings-note-visibility-checkbox";
+var NoteVisibility_CN   =        ".settings-note-visibility";
+var NoteShow_CN         =        ".settings-note-visibility-show";
+var NoteHide_CN         =        ".settings-note-visibility-hide";
 
 // Events
 var CLICK_EVENT         =        "click";

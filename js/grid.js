@@ -147,11 +147,11 @@ DynamicGrid.prototype.SetReminderWidth = function(boxElem, ratio) {
 // Create box script
 DynamicGrid.prototype.CreateBox = function(text, color) {
 	var boxScript = "<li class='square_box' style='background-color:" + color + "'>";
-	boxScript += "<div class='reminder-bar'></div>";
+	//boxScript += "<div class='reminder-bar'></div>";
 	boxScript += "<div class='mainContent'>" + text + "</div>";
 	boxScript += "<div class='bottomBar'>";
 	boxScript += "<i class='fa fa-times fa-lg delete'></i>";
-	boxScript += "<i class='fa fa-clock-o fa-lg reminder_icon'></i>";
+	//boxScript += "<i class='fa fa-clock-o fa-lg reminder_icon'></i>";
 	boxScript += "</div></li>";
 	return boxScript;
 };

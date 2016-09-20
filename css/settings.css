@@ -14,11 +14,30 @@
 	right: 0px;
 	font-size: 15px;
 	z-index: 10;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
 }
 
 .settings-padding {
 	height: 0px;
 }
+
+.settings-title {
+	position: relative;
+	height: 20px;
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.settings-title-label {
+	position: absolute;
+	top: 0px;
+	left: 10px;
+	line-height: 20px;
+  	vertical-align: middle;
+  	font-weight: 800;
+}
+
 .settings-option {
 	margin-top: 5px;
 	width: 250px;
@@ -31,7 +50,8 @@
 }
 
 .settings-note-visibility:hover {
-	background-color: #E39300;
+	background-color: #f0f0f0;
+	cursor: pointer;
 } 
 
 .settings-note-visibility-label {
@@ -43,16 +63,51 @@
 }
 
 input[type="checkbox"] {
-  width: 56px; /*Desired width*/
-  height: 56px; /*Desired height*/
+  width: 36px; /*Desired width*/
+  height: 36px; /*Desired height*/
+  zoom: 1.0;
 }
 
-.settings-note-visibility-checkbox {
+.settings-note-visibility-show-image img, .settings-note-visibility-hide-image img{
 	position: absolute;
-	top: 2px;
+	top: 10px;
 	right: 10px;
-	height: 36px;
-	width: 36px;
-	background: green;
+	height: 20px;
+	width: 20px;
+	//background-color: green;
 }
 
+.settings-footer {
+	position: absolute;
+	bottom: 60px;
+	right: 0px;
+	width: 100%;
+}
+
+.settings-footer-line {
+	width: 100%;
+	height: 1px;
+	background: #d3d3d3;
+	margin: auto;
+}
+
+.settings-footer-version {
+	position: relative;
+	height: 40px;
+}
+
+.settings-footer-version-label {
+	position: absolute;
+	top: 0px;
+	left: 10px;
+	line-height: 40px;
+	vertical-align: middle;
+}
+
+.settings-footer-version-value {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	line-height: 40px;
+	vertical-align: middle;
+}

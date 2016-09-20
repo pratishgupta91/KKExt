@@ -34,11 +34,13 @@ $(document).ready(function() {
 		}
 	});
 
+	$( window ).resize(function() {
+	  dynamicGrid.ReadjustAndAnimate(0, NO_OP);
+	});
+
 });
 
-$( window ).resize(function() {
-  dynamicGrid.ReadjustAndAnimate(0, NO_OP);
-});
+
 
 
 // ChromeHelper.RetrieveQuote(function(items) {

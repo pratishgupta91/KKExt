@@ -81,8 +81,8 @@ NoteCreateBoxHelper.prototype.CreateNote = function() {
 		var note = {
 			"text": noteText,
 			"color": this.GetNoteColor(),
-			"created": +new Date(),
-			"interval": this.GetReminderInterval(),
+			"lastReminded": -1,
+			"interval": -1,
 			ID_TAG_INDEX: -1
 		};
 		return note;

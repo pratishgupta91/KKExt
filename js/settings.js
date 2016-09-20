@@ -11,12 +11,18 @@ Settings.prototype.Init = function(visibility) {
 	});
 }
 
-Settings.prototype.UpdateNoteVisibilitySettingOptionUI = function(visibility) {
+Settings.prototype.UpdateNoteVisibilitySettingOptionUI = function(visibility, shouldDismissSettingsBox) {
 	if(visibility) {
-		this.noteVisibilitySettingOption.prop('checked', false);
+		$(NoteShow_CN).css("visibility", "hidden");
+		$(NoteHide_CN).css("visibility", "visible");
 	}
 	else {
-		this.noteVisibilitySettingOption.prop('checked', true);
+		$(NoteShow_CN).css("visibility", "visible");
+		$(NoteHide_CN).css("visibility", "hidden");
+	}
+
+	if(shouldDismissSettingsBox) {
+		this.CollapseSettingsBox(function() {});
 	}
 }
 
@@ -26,7 +32,7 @@ Settings.prototype.RegisterNoteVisibilitySettingOptionClickEvent = function(call
 	$(this.noteVisibilitySettingOption).click(function(event) {
 		//event.stopPropagation();
 		callback(function(visibility) {
-			that.UpdateNoteVisibilitySettingOptionUI(visibility);
+			that.UpdateNoteVisibilitySettingOptionUI(visibility, true);
 		});
 	})
 }
@@ -36,23 +42,46 @@ Settings.prototype.GenerateSettingsScript = function() {
 	var options = ["Hide Notes", "About"];
 	var script = "<div class='settings-padding'></div>";
 
-	script += "Settings";
+	script += "<div class='settings-title'>";
+	script += "<div class='settings-title-label'>SETTINGS</div></div>";
+	//script += "Settings";
 
 	// Add show notes / hide notes
 	script += "<div class='settings-option settings-note-visibility'>";
+	
+	script += "<div class='settings-note-visibility-show'>";
 	script += "<div class='settings-note-visibility-label'>";
-	script += "Hide Notes";
+	script += "Show Notes";
 	script += "</div>";
-	script += "<div class='settings-note-visibility-checkbox'>";
-	script += "<label>";
-	script += "<input type='checkbox'>";
-	script += "</label>";
+	script += "<div class='settings-note-visibility-show-image'>";
+	script += "<img src='img/visible.png'>";
 	script += "</div>";
 	script += "</div>";
 
-	// Add about
-	script += "<div class='settings-option'>";
-	script += "About";
+	script += "<div class='settings-note-visibility-hide'>";
+	script += "<div class='settings-note-visibility-label'>";
+	script += "Hide Notes";
+	script += "</div>";
+	script += "<div class='settings-note-visibility-hide-image'>";
+	script += "<img src='img/invisible.png'>";
+	script += "</div>";
+	script += "</div>";
+
+	script += "</div>";
+
+	// Add footer
+	script += "<div class='settings-footer'>";
+	script += "<div class='settings-footer-line'></div>";
+
+	script += "<div class='settings-footer-version'>";
+	script += "<div class='settings-footer-version-label'>";
+	script += "Version";
+	script += "</div>";
+	script += "<div class='settings-footer-version-value'>";
+	script += "1.10";
+	script += "</div>";
+	script += "</div>";
+
 	script += "</div>";
 
 	return script;
@@ -99,7 +128,7 @@ Settings.prototype.ToggleSettingsBoxView = function(noteVisibility, callback) {
 	var that = this;
 	if(this.IsSettingsBoxCollapsed()) {
 		this.ExpandSettingsBox(function() {
-			that.UpdateNoteVisibilitySettingOptionUI(noteVisibility);
+			that.UpdateNoteVisibilitySettingOptionUI(noteVisibility, false);
 			callback(true);
 		});
 	}

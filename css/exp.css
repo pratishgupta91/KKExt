@@ -56,16 +56,17 @@ ul {
   left: 0px;
   padding-right: 5px;
   visibility: hidden;
-  background: blue;
+  //background: blue;
 }
 
 .delete {
   position: relative;
   float: right;
+  margin-right: 10px;
   display: block;
   font-size: 30px;
   line-height: 110%;
-  height: 27px;
+  height: 30px;
 }
 
 .reminder_icon {
@@ -76,6 +77,7 @@ ul {
   line-height: 110%;
   height: 27px;
   margin-right: 10px;
+  display: none;
 }
 
 .fa-times,
