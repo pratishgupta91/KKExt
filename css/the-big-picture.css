@@ -1,3 +1,14 @@
+@font-face {
+  font-family: 'Pacifico';
+  src: url('../font/Pacifio.woff2') format('woff2')
+}
+
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto';
+  src: url(../font/roboto.woff2) format('woff2');
+}
+
 body {
 	margin-top: 0px;
 	margin-bottom: 0px;
@@ -10,8 +21,6 @@ body {
 	-webkit-box-sizing: border-box; 
 	 box-sizing:; border-box; 
 }
-
-@import 'https://fonts.googleapis.com/css?family=Roboto:100';
 
 .container {
 	width: 100%;

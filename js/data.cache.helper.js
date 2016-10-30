@@ -25,7 +25,6 @@ DataCacheHelper.prototype.GetAllNotes = function(callback) {
 	}
 };
 
-
 DataCacheHelper.prototype.StoreNoteAt = function(index, note) {
 
 	var that = this;

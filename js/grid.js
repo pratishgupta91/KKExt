@@ -150,7 +150,7 @@ DynamicGrid.prototype.CreateBox = function(text, color) {
 	//boxScript += "<div class='reminder-bar'></div>";
 	boxScript += "<div class='mainContent'>" + text + "</div>";
 	boxScript += "<div class='bottomBar'>";
-	boxScript += "<i class='fa fa-times fa-lg delete'></i>";
+	boxScript += "<div class='delete'></div>";
 	//boxScript += "<i class='fa fa-clock-o fa-lg reminder_icon'></i>";
 	boxScript += "</div></li>";
 	return boxScript;
