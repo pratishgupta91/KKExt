@@ -78,7 +78,7 @@ Settings.prototype.GenerateSettingsScript = function() {
 	script += "Version";
 	script += "</div>";
 	script += "<div class='settings-footer-version-value'>";
-	script += "1.10";
+	script += "1.20";
 	script += "</div>";
 	script += "</div>";
 
