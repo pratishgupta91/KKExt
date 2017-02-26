@@ -13,7 +13,7 @@ body {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	margin-left: 0px;
-	background: none;
+	background-color: white;
 }
 
 * { 
@@ -121,14 +121,22 @@ h3 {
     margin-top: 80px;
     margin-bottom: 1%;
     width: 40%;
-    padding: 2%;
+    padding: 0%;
     color: black;
-    box-shadow: 3px 3px 3px #888888;
     font-family: 'Open Sans', sans-serif;
     font-weight: 5;
     background-color: white;
     height: auto;
     visibility: hidden;
+}
+
+.new_note_btn {
+  display: block;
+  height: 60px;
+  width: 60px;
+  margin: auto;
+  border-radius: 50%;
+  background-color: #e27182;
 }
 
 .boorderless_text{
